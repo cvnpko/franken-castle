@@ -41,6 +41,7 @@ private:
 
     void draw_floor();
 
+    glm::vec3 m_floor_position{400.0f, -10.0f, 0.0f};
     float m_floor_scale{0.01f};
     bool m_cursor_enabled{true};
 };

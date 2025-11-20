@@ -63,7 +63,7 @@ void MainController::draw_floor() {
     shader->set_mat4("projection", graphics->projection_matrix());
     shader->set_mat4("view", graphics->camera()
                                      ->view_matrix());
-    shader->set_mat4("model", translate(scale(glm::mat4(1.0f), glm::vec3(m_floor_scale)), glm::vec3(400.0f, -10.0f, 0.0f)));
+    shader->set_mat4("model", translate(scale(glm::mat4(1.0f), glm::vec3(m_floor_scale)), m_floor_position));
     backpack->draw(shader);
 }
 
