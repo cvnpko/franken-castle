@@ -43,7 +43,7 @@
 
 ## Textures
 
-[link1]  
+https://texturelabs.org/textures/soil_135/
 [link2]
 
 {OTHER-RESOURCES}

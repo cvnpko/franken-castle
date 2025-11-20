@@ -48,11 +48,25 @@ void MainController::begin_draw() {
 }
 
 void MainController::draw() {
+    draw_floor();
 }
 
 void MainController::end_draw() {
     engine::core::Controller::get<engine::platform::PlatformController>()->swap_buffers();
 }
+
+void MainController::draw_floor() {
+    auto graphics = engine::core::Controller::get<engine::graphics::GraphicsController>();
+    auto shader = engine::core::Controller::get<engine::resources::ResourcesController>()->shader("basic");
+    auto backpack = engine::core::Controller::get<engine::resources::ResourcesController>()->model("floor");
+    shader->use();
+    shader->set_mat4("projection", graphics->projection_matrix());
+    shader->set_mat4("view", graphics->camera()
+                                     ->view_matrix());
+    shader->set_mat4("model", translate(scale(glm::mat4(1.0f), glm::vec3(m_floor_scale)), glm::vec3(400.0f, -10.0f, 0.0f)));
+    backpack->draw(shader);
+}
+
 
 void MainController::update_camera() {
     auto platform = engine::core::Controller::get<engine::platform::PlatformController>();

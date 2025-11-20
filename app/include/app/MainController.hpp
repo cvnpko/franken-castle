@@ -37,12 +37,11 @@ private:
 
     void end_draw() override;
 
-    void draw_skybox();
-
-    void draw_backpack();
-
     void update_camera();
 
+    void draw_floor();
+
+    float m_floor_scale{0.01f};
     bool m_cursor_enabled{true};
 };
 }// namespace engine::main::app
