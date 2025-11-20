@@ -1,6 +1,6 @@
-# {NAME-OF-THE-PROJECT}
+# FRANKEN-CASTLE
 
-{INDEX} - {STUDENT-FULL-NAME}  
+34/2023 - Lazar Jovanović  
 {PROJECT DESCRIPTION}
 
 ## Controls
@@ -14,8 +14,8 @@
 
 ### Fundamental:
 
-[ ] Model with lighting
-[ ] Two types of lighting with customizable colors and movement through GUI or ACTIONS
+[ ] Model with lighting  
+[ ] Two types of lighting with customizable colors and movement through GUI or ACTIONS  
 [ ] {ACTION_X} --- AFTER_M_SECONDS---Triggers---> {EVENT_A} ---> AFTER_N_SECONDS---Triggers---> {EVENT_B}
 
 ### Group A:
@@ -26,6 +26,7 @@
 [ ] Parallax Mapping
 
 ### Group B:
+
 [ ] Bloom with the use of HDR  
 [ ] Deferred Shading  
 [ ] Point Shadows  
