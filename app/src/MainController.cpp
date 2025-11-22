@@ -19,6 +19,30 @@ void MainController::initialize() {
     auto observer = std::make_unique<MainPlatformEventObserver>();
     engine::core::Controller::get<engine::platform::PlatformController>()->register_platform_event_observer(
             std::move(observer));
+
+    m_tree_position.emplace_back(-35.0f, 0.0f, 40.0f);
+    m_tree_scale.push_back(2.6f);
+    m_tree_position.emplace_back(0.0f, 0.0f, 34.0f);
+    m_tree_scale.push_back(3.0f);
+    m_tree_position.emplace_back(-40.0f, 0.0f, -45.0f);
+    m_tree_scale.push_back(2.2f);
+    m_tree_position.emplace_back(-5.0f, 0.0f, -35.0f);
+    m_tree_scale.push_back(2.8f);
+    m_tree_position.emplace_back(15.0f, 0.0f, -40.0f);
+    m_tree_scale.push_back(3.2f);
+    m_tree_position.emplace_back(38.0f, 0.0f, -35.0f);
+    m_tree_scale.push_back(3.20f);
+    m_tree_position.emplace_back(38.0f, 0.0f, -10.0f);
+    m_tree_scale.push_back(2.6f);
+    m_tree_position.emplace_back(38.0f, 0.0f, 30.0f);
+    m_tree_scale.push_back(3.8f);
+    m_tree_position.emplace_back(36.0f, 0.0f, 8.0f);
+    m_tree_scale.push_back(2.6f);
+    m_tree_position.emplace_back(20.0f, 0.0f, 25.0f);
+    m_tree_scale.push_back(2.8f);
+    m_tree_position.emplace_back(15.0f, 0.0f, 40.0f);
+    m_tree_scale.push_back(2.6f);
+    m_tree_number = 11;
 }
 
 bool MainController::loop() {
@@ -59,25 +83,27 @@ void MainController::end_draw() {
 void MainController::draw_floor() {
     auto graphics = engine::core::Controller::get<engine::graphics::GraphicsController>();
     auto shader = engine::core::Controller::get<engine::resources::ResourcesController>()->shader("basic");
-    auto backpack = engine::core::Controller::get<engine::resources::ResourcesController>()->model("floor");
+    auto floor = engine::core::Controller::get<engine::resources::ResourcesController>()->model("floor");
     shader->use();
     shader->set_mat4("projection", graphics->projection_matrix());
     shader->set_mat4("view", graphics->camera()
                                      ->view_matrix());
     shader->set_mat4("model", translate(scale(glm::mat4(1.0f), glm::vec3(m_floor_scale)), m_floor_position));
-    backpack->draw(shader);
+    floor->draw(shader);
 }
 
 void MainController::draw_tree() {
     auto graphics = engine::core::Controller::get<engine::graphics::GraphicsController>();
     auto shader = engine::core::Controller::get<engine::resources::ResourcesController>()->shader("basic");
-    auto backpack = engine::core::Controller::get<engine::resources::ResourcesController>()->model("pine_tree");
+    auto tree = engine::core::Controller::get<engine::resources::ResourcesController>()->model("pine_tree");
     shader->use();
     shader->set_mat4("projection", graphics->projection_matrix());
     shader->set_mat4("view", graphics->camera()
                                      ->view_matrix());
-    shader->set_mat4("model", translate(scale(glm::mat4(1.0f), glm::vec3(m_tree_scale)), m_tree_position));
-    backpack->draw(shader);
+    for (int i = 0; i < m_tree_number; i++) {
+        shader->set_mat4("model", scale(translate(glm::mat4(1.0f), m_tree_position[i]), glm::vec3(m_tree_scale[i])));
+        tree->draw(shader);
+    }
 }
 
 
