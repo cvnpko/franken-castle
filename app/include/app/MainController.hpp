@@ -9,6 +9,12 @@
 #include <memory>
 #include <spdlog/spdlog.h>
 namespace engine::main::app {
+
+struct ModelParams {
+    glm::vec3 Position;
+    glm::vec3 Scale;
+};
+
 class MainPlatformEventObserver final : public engine::platform::PlatformEventObserver {
 public:
     void on_key(engine::platform::Key key) override;
@@ -43,11 +49,10 @@ private:
 
     void draw_tree();
 
-    glm::vec3 m_floor_position{0.0f, 0.0f, 0.0f};
-    float m_floor_scale{0.1f};
-    std::vector<glm::vec3> m_tree_position;
-    std::vector<float> m_tree_scale;
-    int m_tree_number{0};
+    glm::mat4 get_model_matrix(ModelParams par) const;
+
+    ModelParams m_floor{{0.0f, 0.0f, 0.0f}, {0.1f, 0.1f, 0.1f}};
+    std::vector<ModelParams> m_trees;
     bool m_cursor_enabled{true};
 };
 }// namespace engine::main::app

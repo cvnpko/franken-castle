@@ -16,33 +16,24 @@ void MainController::initialize() {
     // User initialization
     engine::graphics::OpenGL::enable_depth_testing();
 
+    auto graphics = engine::core::Controller::get<engine::graphics::GraphicsController>();
+    graphics->camera()->Position = {-45, 1, 0};
+
     auto observer = std::make_unique<MainPlatformEventObserver>();
     engine::core::Controller::get<engine::platform::PlatformController>()->register_platform_event_observer(
             std::move(observer));
 
-    m_tree_position.emplace_back(-35.0f, 0.0f, 40.0f);
-    m_tree_scale.push_back(2.6f);
-    m_tree_position.emplace_back(0.0f, 0.0f, 34.0f);
-    m_tree_scale.push_back(3.0f);
-    m_tree_position.emplace_back(-40.0f, 0.0f, -45.0f);
-    m_tree_scale.push_back(2.2f);
-    m_tree_position.emplace_back(-5.0f, 0.0f, -35.0f);
-    m_tree_scale.push_back(2.8f);
-    m_tree_position.emplace_back(15.0f, 0.0f, -40.0f);
-    m_tree_scale.push_back(3.2f);
-    m_tree_position.emplace_back(38.0f, 0.0f, -35.0f);
-    m_tree_scale.push_back(3.20f);
-    m_tree_position.emplace_back(38.0f, 0.0f, -10.0f);
-    m_tree_scale.push_back(2.6f);
-    m_tree_position.emplace_back(38.0f, 0.0f, 30.0f);
-    m_tree_scale.push_back(3.8f);
-    m_tree_position.emplace_back(36.0f, 0.0f, 8.0f);
-    m_tree_scale.push_back(2.6f);
-    m_tree_position.emplace_back(20.0f, 0.0f, 25.0f);
-    m_tree_scale.push_back(2.8f);
-    m_tree_position.emplace_back(15.0f, 0.0f, 40.0f);
-    m_tree_scale.push_back(2.6f);
-    m_tree_number = 11;
+    m_trees.push_back({{-35.0f, 0.0f, 40.0f}, {2.6f, 2.6f, 2.6f}});
+    m_trees.push_back({{0.0f, 0.0f, 34.0f}, {3.0f, 3.0f, 3.0f}});
+    m_trees.push_back({{-40.0f, 0.0f, -45.0f}, {2.2f, 2.2f, 2.2f}});
+    m_trees.push_back({{-5.0f, 0.0f, -35.0f}, {2.8f, 2.8f, 2.8f}});
+    m_trees.push_back({{15.0f, 0.0f, -40.0f}, {3.2f, 3.2f, 3.2f}});
+    m_trees.push_back({{38.0f, 0.0f, -35.0f}, {3.20f, 3.20f, 3.20f}});
+    m_trees.push_back({{38.0f, 0.0f, -10.0f}, {2.6f, 2.6f, 2.6f}});
+    m_trees.push_back({{38.0f, 0.0f, 30.0f}, {3.8f, 3.8f, 3.8f}});
+    m_trees.push_back({{36.0f, 0.0f, 8.0f}, {2.6f, 2.6f, 2.6f}});
+    m_trees.push_back({{20.0f, 0.0f, 25.0f}, {2.8f, 2.8f, 2.8f}});
+    m_trees.push_back({{15.0f, 0.0f, 40.0f}, {2.6f, 2.6f, 2.6f}});
 }
 
 bool MainController::loop() {
@@ -88,22 +79,26 @@ void MainController::draw_floor() {
     shader->set_mat4("projection", graphics->projection_matrix());
     shader->set_mat4("view", graphics->camera()
                                      ->view_matrix());
-    shader->set_mat4("model", translate(scale(glm::mat4(1.0f), glm::vec3(m_floor_scale)), m_floor_position));
+    shader->set_mat4("model", get_model_matrix(m_floor));
     floor->draw(shader);
 }
 
 void MainController::draw_tree() {
     auto graphics = engine::core::Controller::get<engine::graphics::GraphicsController>();
     auto shader = engine::core::Controller::get<engine::resources::ResourcesController>()->shader("basic");
-    auto tree = engine::core::Controller::get<engine::resources::ResourcesController>()->model("pine_tree");
+    auto pine_tree = engine::core::Controller::get<engine::resources::ResourcesController>()->model("pine_tree");
     shader->use();
     shader->set_mat4("projection", graphics->projection_matrix());
     shader->set_mat4("view", graphics->camera()
                                      ->view_matrix());
-    for (int i = 0; i < m_tree_number; i++) {
-        shader->set_mat4("model", scale(translate(glm::mat4(1.0f), m_tree_position[i]), glm::vec3(m_tree_scale[i])));
-        tree->draw(shader);
+    for (auto &tree: m_trees) {
+        shader->set_mat4("model", get_model_matrix(tree));
+        pine_tree->draw(shader);
     }
+}
+
+glm::mat4 MainController::get_model_matrix(ModelParams par) const {
+    return scale(translate(glm::mat4(1.0f), par.Position), par.Scale);
 }
 
 
