@@ -49,9 +49,12 @@ private:
 
     void draw_tree();
 
+    void draw_castle();
+
     glm::mat4 get_model_matrix(ModelParams par) const;
 
     ModelParams m_floor{{0.0f, 0.0f, 0.0f}, {0.1f, 0.1f, 0.1f}};
+    ModelParams m_castle{{1.5f, -0.6f, 0.0}, {0.12f, 0.12f, 0.12f}};
     std::vector<ModelParams> m_trees;
     bool m_cursor_enabled{true};
 };

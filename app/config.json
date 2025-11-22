@@ -8,6 +8,10 @@
       "pine_tree": {
         "path": "tree/tree.obj",
         "flip_uvs": true
+      },
+      "castle": {
+        "path": "castle/castle.obj",
+        "flip_uvs": false
       }
     }
   },

@@ -18,6 +18,7 @@ void MainController::initialize() {
 
     auto graphics = engine::core::Controller::get<engine::graphics::GraphicsController>();
     graphics->camera()->Position = {-45, 1, 0};
+    graphics->camera()->MovementSpeed *= 4.0f;
 
     auto observer = std::make_unique<MainPlatformEventObserver>();
     engine::core::Controller::get<engine::platform::PlatformController>()->register_platform_event_observer(
@@ -65,6 +66,7 @@ void MainController::begin_draw() {
 void MainController::draw() {
     draw_floor();
     draw_tree();
+    draw_castle();
 }
 
 void MainController::end_draw() {
@@ -77,8 +79,7 @@ void MainController::draw_floor() {
     auto floor = engine::core::Controller::get<engine::resources::ResourcesController>()->model("floor");
     shader->use();
     shader->set_mat4("projection", graphics->projection_matrix());
-    shader->set_mat4("view", graphics->camera()
-                                     ->view_matrix());
+    shader->set_mat4("view", graphics->camera()->view_matrix());
     shader->set_mat4("model", get_model_matrix(m_floor));
     floor->draw(shader);
 }
@@ -89,12 +90,22 @@ void MainController::draw_tree() {
     auto pine_tree = engine::core::Controller::get<engine::resources::ResourcesController>()->model("pine_tree");
     shader->use();
     shader->set_mat4("projection", graphics->projection_matrix());
-    shader->set_mat4("view", graphics->camera()
-                                     ->view_matrix());
+    shader->set_mat4("view", graphics->camera()->view_matrix());
     for (auto &tree: m_trees) {
         shader->set_mat4("model", get_model_matrix(tree));
         pine_tree->draw(shader);
     }
+}
+
+void MainController::draw_castle() {
+    auto graphics = engine::core::Controller::get<engine::graphics::GraphicsController>();
+    auto shader = engine::core::Controller::get<engine::resources::ResourcesController>()->shader("basic");
+    auto castle = engine::core::Controller::get<engine::resources::ResourcesController>()->model("castle");
+    shader->use();
+    shader->set_mat4("projection", graphics->projection_matrix());
+    shader->set_mat4("view", graphics->camera()->view_matrix());
+    shader->set_mat4("model", get_model_matrix(m_castle));
+    castle->draw(shader);
 }
 
 glm::mat4 MainController::get_model_matrix(ModelParams par) const {
