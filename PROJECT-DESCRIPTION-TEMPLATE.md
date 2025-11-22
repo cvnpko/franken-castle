@@ -38,12 +38,8 @@
 
 ## Models:
 
-[link1]   
-[link2]
+https://sketchfab.com/3d-models/stylized-pine-8a654cc7f8394416b8148f3de488453e[link2]
 
 ## Textures
 
 https://texturelabs.org/textures/soil_135/
-[link2]
-
-{OTHER-RESOURCES}

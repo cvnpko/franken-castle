@@ -4,6 +4,10 @@
       "floor": {
         "path": "floor/floor.obj",
         "flip_uvs": false
+      },
+      "pine_tree": {
+        "path": "tree/tree.obj",
+        "flip_uvs": true
       }
     }
   },
