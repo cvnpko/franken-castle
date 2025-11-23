@@ -13,6 +13,7 @@ namespace engine::main::app {
 struct ModelParams {
     glm::vec3 Position;
     glm::vec3 Scale;
+    std::vector<std::pair<glm::vec3, float>> Rotate;
 };
 
 class MainPlatformEventObserver final : public engine::platform::PlatformEventObserver {
@@ -51,11 +52,14 @@ private:
 
     void draw_castle();
 
+    void draw_grass();
+
     glm::mat4 get_model_matrix(ModelParams par) const;
 
     ModelParams m_floor{{0.0f, 0.0f, 0.0f}, {0.1f, 0.1f, 0.1f}};
     ModelParams m_castle{{1.5f, -0.6f, 0.0}, {0.12f, 0.12f, 0.12f}};
     std::vector<ModelParams> m_trees;
+    std::vector<ModelParams> m_grass;
     bool m_cursor_enabled{true};
 };
 }// namespace engine::main::app

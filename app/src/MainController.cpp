@@ -2,6 +2,7 @@
 // Created by cvnpko on 11/20/25.
 //
 #include <app/MainController.hpp>
+#include <random>
 
 namespace engine::main::app {
 void MainPlatformEventObserver::on_key(engine::platform::Key key) {
@@ -13,7 +14,6 @@ void MainPlatformEventObserver::on_mouse_move(engine::platform::MousePosition po
 }
 
 void MainController::initialize() {
-    // User initialization
     engine::graphics::OpenGL::enable_depth_testing();
 
     auto graphics = engine::core::Controller::get<engine::graphics::GraphicsController>();
@@ -35,6 +35,35 @@ void MainController::initialize() {
     m_trees.push_back({{36.0f, 0.0f, 8.0f}, {2.6f, 2.6f, 2.6f}});
     m_trees.push_back({{20.0f, 0.0f, 25.0f}, {2.8f, 2.8f, 2.8f}});
     m_trees.push_back({{15.0f, 0.0f, 40.0f}, {2.6f, 2.6f, 2.6f}});
+
+    std::random_device rd;
+    std::mt19937 gen(rd());
+    {
+        std::uniform_real_distribution<float> distx(-49.9f, -18.1f);
+        std::uniform_real_distribution<float> disty(-0.01f, 0.01f);
+        std::uniform_real_distribution<float> distz(-49.9f, 49.9f);
+        std::uniform_real_distribution<float> dists(0.8f, 1.2f);
+        std::uniform_real_distribution<float> dista(0.0f, 360.0f);
+        glm::vec3 vecn = {0.0f, 1.0f, 0.0f};
+        for (int i = 0; i < 10000; i++) {
+            m_grass.push_back({{distx(gen), disty(gen), distz(gen)},
+                               {dists(gen), dists(gen), dists(gen)}});
+            m_grass.back().Rotate.emplace_back(vecn, dista(gen));
+        }
+    }
+    {
+        std::uniform_real_distribution<float> distx(-12.0f, 49.9f);
+        std::uniform_real_distribution<float> disty(-0.01f, 0.01f);
+        std::uniform_real_distribution<float> distz(-49.9f, 49.9f);
+        std::uniform_real_distribution<float> dists(0.8f, 1.2f);
+        std::uniform_real_distribution<float> dista(0.0f, 360.0f);
+        glm::vec3 vecn = {0.0f, 1.0f, 0.0f};
+        for (int i = 0; i < 10000; i++) {
+            m_grass.push_back({{distx(gen), disty(gen), distz(gen)},
+                               {dists(gen), dists(gen), dists(gen)}});
+            m_grass.back().Rotate.emplace_back(vecn, dista(gen));
+        }
+    }
 }
 
 bool MainController::loop() {
@@ -64,6 +93,7 @@ void MainController::begin_draw() {
 }
 
 void MainController::draw() {
+    draw_grass();
     draw_floor();
     draw_tree();
     draw_castle();
@@ -72,6 +102,20 @@ void MainController::draw() {
 void MainController::end_draw() {
     engine::core::Controller::get<engine::platform::PlatformController>()->swap_buffers();
 }
+
+void MainController::draw_grass() {
+    auto graphics = engine::core::Controller::get<engine::graphics::GraphicsController>();
+    auto shader = engine::core::Controller::get<engine::resources::ResourcesController>()->shader("basic");
+    auto grass = engine::core::Controller::get<engine::resources::ResourcesController>()->model("grass");
+    shader->use();
+    shader->set_mat4("projection", graphics->projection_matrix());
+    shader->set_mat4("view", graphics->camera()->view_matrix());
+    for (auto &g: m_grass) {
+        shader->set_mat4("model", get_model_matrix(g));
+        grass->draw(shader);
+    }
+}
+
 
 void MainController::draw_floor() {
     auto graphics = engine::core::Controller::get<engine::graphics::GraphicsController>();
@@ -91,8 +135,8 @@ void MainController::draw_tree() {
     shader->use();
     shader->set_mat4("projection", graphics->projection_matrix());
     shader->set_mat4("view", graphics->camera()->view_matrix());
-    for (auto &tree: m_trees) {
-        shader->set_mat4("model", get_model_matrix(tree));
+    for (auto &t: m_trees) {
+        shader->set_mat4("model", get_model_matrix(t));
         pine_tree->draw(shader);
     }
 }
@@ -109,7 +153,11 @@ void MainController::draw_castle() {
 }
 
 glm::mat4 MainController::get_model_matrix(ModelParams par) const {
-    return scale(translate(glm::mat4(1.0f), par.Position), par.Scale);
+    glm::mat4 ret = scale(translate(glm::mat4(1.0f), par.Position), par.Scale);
+    for (auto &r: par.Rotate) {
+        ret = rotate(ret, glm::radians(r.second), r.first);
+    }
+    return ret;
 }
 
 
