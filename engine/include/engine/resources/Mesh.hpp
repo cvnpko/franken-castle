@@ -6,9 +6,9 @@
 #ifndef MATF_RG_PROJECT_MESH_HPP
 #define MATF_RG_PROJECT_MESH_HPP
 
+#include <engine/resources/Texture.hpp>
 #include <glm/glm.hpp>
 #include <vector>
-#include <engine/resources/Texture.hpp>
 
 namespace engine::resources {
 /**
@@ -32,12 +32,14 @@ class Mesh {
     friend class AssimpSceneProcessor;
 
 public:
-
     /**
     * @brief Draws the mesh using a given shader. Called by the @ref Model::draw function to draw all the meshes in the model.
     * @param shader The shader to use for drawing.
     */
     void draw(const Shader *shader);
+    void draw_instancing(const Shader *shader, uint32_t amount);
+
+    uint32_t get_vao() const { return m_vao; }
 
     /**
     * @brief Destroys the mesh in the OpenGL context.
@@ -58,6 +60,6 @@ private:
     uint32_t m_num_indices{0};
     std::vector<Texture *> m_textures;
 };
-} // namespace engine
+}// namespace engine::resources
 
 #endif//MATF_RG_PROJECT_MESH_HPP

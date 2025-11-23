@@ -11,7 +11,7 @@
       },
       "castle": {
         "path": "castle/castle.obj",
-        "flip_uvs": true
+        "flip_uvs": false
       },
       "grass": {
         "path": "grass/grass.obj",

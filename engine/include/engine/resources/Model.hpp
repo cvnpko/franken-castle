@@ -24,6 +24,7 @@ public:
     * @param shader The shader to use for drawing.
     */
     void draw(const Shader *shader);
+    void draw_instancing(const Shader *shader, uint32_t amount);
 
     /**
     * @brief Destroys the model in the OpenGL context.

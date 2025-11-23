@@ -1,7 +1,7 @@
-#include<glad/glad.h>
-#include <engine/util/Utils.hpp>
 #include <engine/resources/Mesh.hpp>
 #include <engine/resources/Shader.hpp>
+#include <engine/util/Utils.hpp>
+#include <glad/glad.h>
 #include <unordered_map>
 
 namespace engine::resources {
@@ -63,8 +63,28 @@ void Mesh::draw(const Shader *shader) {
     glBindVertexArray(0);
 }
 
+void Mesh::draw_instancing(const Shader *shader, uint32_t amount) {
+    std::unordered_map<std::string_view, uint32_t> counts;
+    std::string uniform_name;
+    uniform_name.reserve(32);
+    for (int i = 0; i < m_textures.size(); i++) {
+        glActiveTexture(GL_TEXTURE0 + i);
+        const auto &texture_type = Texture::uniform_name_convention(m_textures[i]->type());
+        uniform_name.append(texture_type);
+        const auto count = (counts[texture_type] += 1);
+        uniform_name.append(std::to_string(count));
+        shader->set_int(uniform_name, i);
+        glBindTexture(GL_TEXTURE_2D, m_textures[i]->id());
+        uniform_name.clear();
+    }
+    glBindVertexArray(m_vao);
+    glDrawElements(GL_TRIANGLES, m_num_indices, GL_UNSIGNED_INT, 0);
+    glDrawElementsInstanced(GL_TRIANGLES, static_cast<unsigned int>(m_num_indices), GL_UNSIGNED_INT, 0, amount);
+    glBindVertexArray(0);
+}
+
 void Mesh::destroy() {
     glDeleteVertexArrays(1, &m_vao);
 }
 
-}
+}// namespace engine::resources

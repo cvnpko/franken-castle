@@ -7,8 +7,9 @@
 #define OPENGL_HPP
 
 #include <cstdint>
-#include <filesystem>
+#include <engine/resources/Model.hpp>
 #include <engine/resources/Shader.hpp>
+#include <filesystem>
 
 namespace engine::resources {
 class Skybox;
@@ -52,15 +53,15 @@ public:
         // @formatter:off
         if constexpr (!std::is_same_v<TResult, void>) {
             auto result = glfun(std::forward<Args>(args)...);
-            #ifndef NDEBUG
-                assert_no_error(location);
-            #endif
+#ifndef NDEBUG
+            assert_no_error(location);
+#endif
             return result;
         } else {
             glfun(std::forward<Args>(args)...);
-            #ifndef NDEBUG
-                assert_no_error(location);
-            #endif
+#ifndef NDEBUG
+            assert_no_error(location);
+#endif
         }
         // @formatter:on
     }
@@ -141,6 +142,8 @@ public:
     */
     static std::string get_compilation_error_message(uint32_t shader_id);
 
+    static void load_instancing(std::vector<glm::mat4> &data, const std::vector<resources::Mesh> &meshes);
+
 private:
     /**
     * @brief Throws an engine::util::EngineError of type @ref engine::util::EngineError::Type::OpenGLError if an OpenGL error occurred. Used internally.
@@ -148,5 +151,5 @@ private:
     */
     static void assert_no_error(std::source_location location);
 };
-}
-#endif //OPENGL_HPP
+}// namespace engine::graphics
+#endif//OPENGL_HPP
