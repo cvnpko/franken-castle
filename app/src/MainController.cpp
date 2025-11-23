@@ -105,6 +105,7 @@ void MainController::draw() {
     draw_floor();
     draw_tree();
     draw_castle();
+    draw_bridge();
 }
 
 void MainController::end_draw() {
@@ -154,11 +155,23 @@ void MainController::draw_castle() {
     castle->draw(shader);
 }
 
+void MainController::draw_bridge() {
+    auto graphics = engine::core::Controller::get<engine::graphics::GraphicsController>();
+    auto shader = engine::core::Controller::get<engine::resources::ResourcesController>()->shader("basic");
+    auto bridge = engine::core::Controller::get<engine::resources::ResourcesController>()->model("bridge");
+    shader->use();
+    shader->set_mat4("projection", graphics->projection_matrix());
+    shader->set_mat4("view", graphics->camera()->view_matrix());
+    shader->set_mat4("model", get_model_matrix(m_bridge));
+    bridge->draw(shader);
+}
+
 glm::mat4 MainController::get_model_matrix(ModelParams par) {
-    glm::mat4 ret = scale(translate(glm::mat4(1.0f), par.Position), par.Scale);
+    glm::mat4 ret = translate(glm::mat4(1.0f), par.Position);
     for (auto &r: par.Rotate) {
         ret = rotate(ret, glm::radians(r.second), r.first);
     }
+    ret = scale(ret, par.Scale);
     return ret;
 }
 

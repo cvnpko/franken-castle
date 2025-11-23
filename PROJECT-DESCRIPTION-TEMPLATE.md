@@ -21,7 +21,7 @@
 ### Group A:
 
 [ ] Frame-buffers with post-processing   
-[ ] Instancing  
+[x] Instancing  
 [ ] Off-screen Anti-Aliasing  
 [ ] Parallax Mapping
 
@@ -40,6 +40,7 @@
 
 https://sketchfab.com/3d-models/stylized-pine-8a654cc7f8394416b8148f3de488453e[link2]
 https://free3d.com/3d-model/low-poly-flowers-grass-386651.html
+https://sketchfab.com/3d-models/plank-bridge-ea79a4fe83fb4b5181bd68614c73e84a
 
 ## Textures
 

@@ -16,6 +16,10 @@
       "grass": {
         "path": "grass/grass.obj",
         "flip_uvs": true
+      },
+      "bridge": {
+        "path": "bridge/bridge_planks.obj",
+        "flip_uvs": true
       }
     }
   },
