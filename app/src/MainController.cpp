@@ -7,11 +7,11 @@
 
 namespace engine::main::app {
 void MainPlatformEventObserver::on_key(engine::platform::Key key) {
-    spdlog::info("Keyboard event: key={}, state={}", key.name(), key.state_str());
+    // spdlog::info("Keyboard event: key={}, state={}", key.name(), key.state_str());
 }
 
 void MainPlatformEventObserver::on_mouse_move(engine::platform::MousePosition position) {
-    spdlog::info("MousePosition: {} {}", position.x, position.y);
+    // spdlog::info("MousePosition: {} {}", position.x, position.y);
 }
 
 void MainController::initialize() {
