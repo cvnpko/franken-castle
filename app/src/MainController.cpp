@@ -72,6 +72,8 @@ void MainController::initialize() {
     }
     auto grass = engine::core::Controller::get<engine::resources::ResourcesController>()->model("grass");
     engine::graphics::OpenGL::load_instancing(m_grass, grass->meshes());
+
+    m_plank.Rotate.emplace_back(glm::vec3(0.0f, 1.0f, 0.0f), 90.0f);
 }
 
 bool MainController::loop() {
@@ -90,10 +92,35 @@ void MainController::poll_events() {
         m_cursor_enabled = !m_cursor_enabled;
         platform->set_enable_cursor(m_cursor_enabled);
     }
+    if (platform->key(engine::platform::KEY_B)
+                .state() == engine::platform::Key::State::JustPressed) {
+        m_bridge_opening++;
+    }
 }
 
 void MainController::update() {
     update_camera();
+    if (m_bridge_opening > 0) {
+        auto platform = engine::core::Controller::get<engine::platform::PlatformController>();
+        float dt = 10 * platform->dt();
+        if (m_bridge_opened) {
+            m_bridge_radius -= dt;
+            if (m_bridge_radius < 0.0f) {
+                m_bridge_radius = 0.0f;
+                m_bridge_opening--;
+                m_bridge_opened = false;
+            }
+        } else {
+            m_bridge_radius += dt;
+            if (m_bridge_radius > 90.0f) {
+                m_bridge_radius = 90.0f;
+                m_bridge_opening--;
+                m_bridge_opened = true;
+            }
+        }
+        spdlog::info("Bridge radius: {}", m_bridge_radius);
+        spdlog::info("Bridge opening: {}", m_bridge_opening);
+    }
 }
 
 void MainController::begin_draw() {
@@ -106,6 +133,7 @@ void MainController::draw() {
     draw_tree();
     draw_castle();
     draw_bridge();
+    draw_plank();
 }
 
 void MainController::end_draw() {
@@ -162,8 +190,19 @@ void MainController::draw_bridge() {
     shader->use();
     shader->set_mat4("projection", graphics->projection_matrix());
     shader->set_mat4("view", graphics->camera()->view_matrix());
-    shader->set_mat4("model", get_model_matrix(m_bridge));
+    shader->set_mat4("model", rotate(get_model_matrix(m_bridge), glm::radians(m_bridge_radius), m_bridge_vec));
     bridge->draw(shader);
+}
+
+void MainController::draw_plank() {
+    auto graphics = engine::core::Controller::get<engine::graphics::GraphicsController>();
+    auto shader = engine::core::Controller::get<engine::resources::ResourcesController>()->shader("basic");
+    auto plank = engine::core::Controller::get<engine::resources::ResourcesController>()->model("plank");
+    shader->use();
+    shader->set_mat4("projection", graphics->projection_matrix());
+    shader->set_mat4("view", graphics->camera()->view_matrix());
+    shader->set_mat4("model", get_model_matrix(m_plank));
+    plank->draw(shader);
 }
 
 glm::mat4 MainController::get_model_matrix(ModelParams par) {
@@ -174,7 +213,6 @@ glm::mat4 MainController::get_model_matrix(ModelParams par) {
     ret = scale(ret, par.Scale);
     return ret;
 }
-
 
 void MainController::update_camera() {
     auto platform = engine::core::Controller::get<engine::platform::PlatformController>();

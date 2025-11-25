@@ -20,6 +20,10 @@
       "bridge": {
         "path": "bridge/bridge_planks.obj",
         "flip_uvs": true
+      },
+      "plank": {
+        "path": "plank/plank.obj",
+        "flip_uvs": true
       }
     }
   },

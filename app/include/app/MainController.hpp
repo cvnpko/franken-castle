@@ -56,14 +56,22 @@ private:
 
     void draw_bridge();
 
-    static glm::mat4 get_model_matrix(ModelParams par);
+    void draw_plank();
+
+    glm::mat4 get_model_matrix(ModelParams par);
 
     ModelParams m_floor{{0.0f, 0.0f, 0.0f}, {0.1f, 0.1f, 0.1f}};
     ModelParams m_castle{{1.5f, -0.6f, 0.0f}, {0.12f, 0.12f, 0.12f}};
-    ModelParams m_bridge{{-11.2f, 0.0f, -4.8f}, {5.0f, 4.8f, 8.0f}};
+    ModelParams m_bridge{{-11.2f, 0.25f, -4.8f}, {5.0f, 4.8f, 8.0f}};
+    ModelParams m_plank{{-11.2f, 0.0f, -4.8f}, {5.0f, 4.8f, 4.0f}};
+
     std::vector<glm::mat4> m_trees;
     std::vector<glm::mat4> m_grass;
     bool m_cursor_enabled{true};
+    int m_bridge_opening{0};
+    bool m_bridge_opened{false};
+    glm::vec3 m_bridge_vec{0.0f, 0.0f, 1.0f};
+    float m_bridge_radius{0.0f};
 };
 }// namespace engine::main::app
 #endif//MAINCONTROLLER_HPP
