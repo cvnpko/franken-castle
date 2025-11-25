@@ -45,6 +45,7 @@ https://sketchfab.com/3d-models/stylized-pine-8a654cc7f8394416b8148f3de488453e[l
 https://free3d.com/3d-model/low-poly-flowers-grass-386651.html
 https://sketchfab.com/3d-models/plank-bridge-ea79a4fe83fb4b5181bd68614c73e84a
 https://sketchfab.com/3d-models/dirty-plank-504babddf86c4c2c85bc2ee3c7f53002
+https://sketchfab.com/3d-models/low-poly-animated-cartoon-alligator-8d067b5049c349c5af727b00e8f9dda6
 
 ## Textures
 

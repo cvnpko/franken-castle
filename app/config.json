@@ -28,6 +28,10 @@
       "water": {
         "path": "water/water.obj",
         "flip_uvs": true
+      },
+      "alligator": {
+        "path": "alligator/alligator.obj",
+        "flip_uvs": true
       }
     }
   },

@@ -62,6 +62,8 @@ private:
 
     void draw_water();
 
+    void draw_alligator();
+
     glm::mat4 get_model_matrix(ModelParams par);
 
     ModelParams m_floor{{0.0f, 0.0f, 0.0f}, {0.1f, 0.1f, 0.1f}};
@@ -69,6 +71,7 @@ private:
     ModelParams m_bridge{{-11.2f, 0.25f, -4.8f}, {5.0f, 4.8f, 8.0f}};
     ModelParams m_plank{{-11.2f, 0.0f, -4.8f}, {5.0f, 4.8f, 4.0f}};
     ModelParams m_water{{-15.0f, 0.0f, 0.0f}, {0.1f, 0.1f, 0.1f}};
+    ModelParams m_alligator{{-15.0f, -0.49f, 15.0f}, {4.0f, 4.0f, 4.0f}};
 
     std::vector<glm::mat4> m_trees;
     std::vector<glm::mat4> m_grass;

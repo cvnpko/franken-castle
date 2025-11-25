@@ -136,6 +136,7 @@ void MainController::draw() {
     draw_plank();
     draw_skybox();
     draw_water();
+    draw_alligator();
 }
 
 void MainController::end_draw() {
@@ -233,6 +234,19 @@ void MainController::draw_water() {
     shader->set_mat4("model", get_model_matrix(m_water));
 
     water->draw(shader);
+}
+
+void MainController::draw_alligator() {
+    auto graphics = engine::core::Controller::get<engine::graphics::GraphicsController>();
+    auto shader = engine::core::Controller::get<engine::resources::ResourcesController>()->shader("basic");
+    auto platform = engine::core::Controller::get<engine::platform::PlatformController>();
+    auto alligator = engine::core::Controller::get<engine::resources::ResourcesController>()->model("alligator");
+    shader->use();
+    shader->set_mat4("projection", graphics->projection_matrix());
+    shader->set_mat4("view", graphics->camera()->view_matrix());
+    shader->set_mat4("model", get_model_matrix(m_alligator));
+
+    alligator->draw(shader);
 }
 
 void MainController::update_camera() {
