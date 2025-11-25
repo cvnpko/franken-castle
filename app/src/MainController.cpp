@@ -102,7 +102,7 @@ void MainController::update() {
     update_camera();
     if (m_bridge_opening > 0) {
         auto platform = engine::core::Controller::get<engine::platform::PlatformController>();
-        float dt = 10 * platform->dt();
+        float dt = 20 * platform->dt();
         if (m_bridge_opened) {
             m_bridge_radius -= dt;
             if (m_bridge_radius < 0.0f) {
@@ -118,8 +118,8 @@ void MainController::update() {
                 m_bridge_opened = true;
             }
         }
-        spdlog::info("Bridge radius: {}", m_bridge_radius);
-        spdlog::info("Bridge opening: {}", m_bridge_opening);
+        // spdlog::info("Bridge radius: {}", m_bridge_radius);
+        // spdlog::info("Bridge opening: {}", m_bridge_opening);
     }
 }
 
