@@ -58,6 +58,8 @@ private:
 
     void draw_plank();
 
+    void draw_skybox();
+
     glm::mat4 get_model_matrix(ModelParams par);
 
     ModelParams m_floor{{0.0f, 0.0f, 0.0f}, {0.1f, 0.1f, 0.1f}};

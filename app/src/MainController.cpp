@@ -134,6 +134,7 @@ void MainController::draw() {
     draw_castle();
     draw_bridge();
     draw_plank();
+    draw_skybox();
 }
 
 void MainController::end_draw() {
@@ -212,6 +213,12 @@ glm::mat4 MainController::get_model_matrix(ModelParams par) {
     }
     ret = scale(ret, par.Scale);
     return ret;
+}
+
+void MainController::draw_skybox() {
+    auto shader = engine::core::Controller::get<engine::resources::ResourcesController>()->shader("skybox");
+    auto skybox_cube = engine::core::Controller::get<engine::resources::ResourcesController>()->skybox("skybox");
+    engine::core::Controller::get<engine::graphics::GraphicsController>()->draw_skybox(shader, skybox_cube);
 }
 
 void MainController::update_camera() {
