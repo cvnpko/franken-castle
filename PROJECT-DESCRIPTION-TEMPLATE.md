@@ -5,10 +5,13 @@
 
 ## Controls
 
-{BUTTON1} -> {ACTION1}  
-{BUTTON2} -> {ACTION2}  
-...  
-{BUTTONN} -> {ACTIONN}
+W -> MOVES FORWARD  
+A -> MOVES LEFT  
+S -> MOVES BACKWARD  
+D -> MOVES RIGHT  
+B -> TOGGLE THE BRIDGE  
+F1 -> TOGGLE THE MOUSE  
+ESC -> CLOSE
 
 ## Features
 
