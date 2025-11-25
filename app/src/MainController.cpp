@@ -135,6 +135,7 @@ void MainController::draw() {
     draw_bridge();
     draw_plank();
     draw_skybox();
+    draw_water();
 }
 
 void MainController::end_draw() {
@@ -219,6 +220,19 @@ void MainController::draw_skybox() {
     auto shader = engine::core::Controller::get<engine::resources::ResourcesController>()->shader("skybox");
     auto skybox_cube = engine::core::Controller::get<engine::resources::ResourcesController>()->skybox("skybox");
     engine::core::Controller::get<engine::graphics::GraphicsController>()->draw_skybox(shader, skybox_cube);
+}
+
+void MainController::draw_water() {
+    auto graphics = engine::core::Controller::get<engine::graphics::GraphicsController>();
+    auto shader = engine::core::Controller::get<engine::resources::ResourcesController>()->shader("basic");
+    auto platform = engine::core::Controller::get<engine::platform::PlatformController>();
+    auto water = engine::core::Controller::get<engine::resources::ResourcesController>()->model("water");
+    shader->use();
+    shader->set_mat4("projection", graphics->projection_matrix());
+    shader->set_mat4("view", graphics->camera()->view_matrix());
+    shader->set_mat4("model", get_model_matrix(m_water));
+
+    water->draw(shader);
 }
 
 void MainController::update_camera() {

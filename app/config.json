@@ -24,6 +24,10 @@
       "plank": {
         "path": "plank/plank.obj",
         "flip_uvs": true
+      },
+      "water": {
+        "path": "water/water.obj",
+        "flip_uvs": true
       }
     }
   },
