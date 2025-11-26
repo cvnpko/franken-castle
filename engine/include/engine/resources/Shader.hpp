@@ -7,8 +7,8 @@
 #define MATF_RG_PROJECT_SHADER_HPP
 
 #include <engine/util/Utils.hpp>
-#include <string>
 #include <glm/glm.hpp>
+#include <string>
 
 namespace engine::resources {
 using ShaderName = std::string;
@@ -18,7 +18,9 @@ using ShaderName = std::string;
 * @brief The type of the shader.
 */
 enum class ShaderType {
-    Vertex, Fragment, Geometry
+    Vertex,
+    Fragment,
+    Geometry
 };
 
 /**
@@ -128,6 +130,11 @@ public:
     */
     const std::filesystem::path &source_path() const;
 
+    /**
+    * @brief Destroys the shader program in the OpenGL context.
+    */
+    void destroy() const;
+
 private:
     /**
     * @brief Constructs a Shader object.
@@ -136,13 +143,7 @@ private:
     * @param source The source code of the shader program.
     * @param source_path The path to the source file from which the shader program was compiled.
     */
-    Shader(unsigned shader_id, std::string name, std::string source,
-           std::filesystem::path source_path = "");
-
-    /**
-    * @brief Destroys the shader program in the OpenGL context.
-    */
-    void destroy() const;
+    Shader(unsigned shader_id, std::string name, std::string source, std::filesystem::path source_path = "");
 
     /**
     * @brief The OpenGL ID of the shader program.
@@ -156,6 +157,6 @@ private:
     std::string m_source;
     std::filesystem::path m_source_path;
 };
-} // namespace engine
+}// namespace engine::resources
 
 #endif//MATF_RG_PROJECT_SHADER_HPP

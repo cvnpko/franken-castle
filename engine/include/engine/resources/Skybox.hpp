@@ -6,7 +6,6 @@
 #ifndef SKYBOX_HPP
 #define SKYBOX_HPP
 
-#include <cstdint>
 #include <filesystem>
 #include <utility>
 
@@ -56,12 +55,13 @@ private:
     * @param name The name of the skybox.
     */
     Skybox(uint32_t vao, uint32_t texture_id, std::filesystem::path path, std::string name)
-            : m_vao(vao)
-              , m_texture_id(texture_id)
-              , m_path(std::move(path))
-              , m_name(std::move(name)) {
+        : m_vao(vao)
+        , m_texture_id(texture_id)
+        , m_path(std::move(path))
+        , m_name(std::move(name)) {
     }
 };
-}
 
-#endif //SKYBOX_HPP
+}// namespace engine::resources
+
+#endif//SKYBOX_HPP

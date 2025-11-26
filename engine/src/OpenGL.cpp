@@ -1,4 +1,7 @@
 #include <array>
+// clang-format off
+#include <glad/glad.h>
+// clang-format on
 #include <engine/graphics/Camera.hpp>
 #include <engine/graphics/OpenGL.hpp>
 #include <engine/resources/Shader.hpp>
@@ -11,6 +14,8 @@
 #include <iosfwd>
 #include <stb_image.h>
 #include <vector>
+#include <filesystem>
+#include <stb_image.h>
 
 namespace engine::graphics {
 int32_t OpenGL::shader_type_to_opengl_type(resources::ShaderType type) {
@@ -65,9 +70,9 @@ uint32_t OpenGL::init_skybox_cube() {
         return skybox_vao;
     }
     float vertices[] = {
-    // @formatter:off
-#include <skybox_vertices.include>
-            // @formatter:on
+    // clang-format off
+        #include <skybox_vertices.include>
+            // clang-format on
     };
     uint32_t skybox_vbo = 0;
     CHECKED_GL_CALL(glGenVertexArrays, 1, &skybox_vao);
@@ -146,9 +151,7 @@ uint32_t OpenGL::load_skybox_textures(const std::filesystem::path &path, bool fl
             stbi_image_free(data);
         };
         if (data) {
-            uint32_t i = face_index(file.path()
-                                            .stem()
-                                            .c_str());
+            uint32_t i = face_index(file.path().stem().c_str());
             int32_t format = texture_format(nr_channels);
             CHECKED_GL_CALL(glTexImage2D, GL_TEXTURE_CUBE_MAP_POSITIVE_X + i, 0, format, width, height, 0, format,
                             GL_UNSIGNED_BYTE,

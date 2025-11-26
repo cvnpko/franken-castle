@@ -1,4 +1,7 @@
+// clang-format off
 #include <glad/glad.h>
+// clang-format on
+#include <engine/graphics/OpenGL.hpp>
 #include <engine/resources/Texture.hpp>
 #include <engine/util/Errors.hpp>
 
@@ -14,13 +17,13 @@ std::string_view texture_type_to_string(TextureType type) {
 }
 
 void Texture::destroy() {
-    glDeleteTextures(1, &m_id);
+    CHECKED_GL_CALL(glDeleteTextures, 1, &m_id);
 }
 
 void Texture::bind(int32_t sampler) {
     RG_GUARANTEE(sampler >= GL_TEXTURE0 && sampler <= GL_TEXTURE31, "sampler out of range");
-    glActiveTexture(sampler);
-    glBindTexture(GL_TEXTURE_2D, m_id);
+    CHECKED_GL_CALL(glActiveTexture, sampler);
+    CHECKED_GL_CALL(glBindTexture, GL_TEXTURE_2D, m_id);
 }
 
 std::string_view Texture::uniform_name_convention(TextureType type) {
@@ -32,4 +35,4 @@ std::string_view Texture::uniform_name_convention(TextureType type) {
         default: RG_SHOULD_NOT_REACH_HERE("Unhandled TextureType");
     }
 }
-}
+}// namespace engine::resources
