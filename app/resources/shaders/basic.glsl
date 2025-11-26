@@ -18,7 +18,7 @@ void main()
     FragPos = vec3(model * vec4(aPos, 1.0));
     Normal = transpose(inverse(mat3(model))) * aNormal;
     TexCoords = aTexCoords;
-    gl_Position = projection * view * model * vec4(aPos, 1.0);
+    gl_Position = projection * view * vec4(FragPos, 1.0);
 }
 
 //#shader fragment
