@@ -82,8 +82,8 @@ void Mesh::draw_instancing(const Shader *shader, uint32_t amount) {
         uniform_name.clear();
     }
     CHECKED_GL_CALL(glBindVertexArray, m_vao);
-    CHECKED_GL_CALL(glDrawElements, GL_TRIANGLES, m_num_indices, GL_UNSIGNED_INT, 0);
-    CHECKED_GL_CALL(glDrawElementsInstanced, GL_TRIANGLES, static_cast<unsigned int>(m_num_indices), GL_UNSIGNED_INT, 0, amount);
+    CHECKED_GL_CALL(glDrawElements, GL_TRIANGLES, m_num_indices, GL_UNSIGNED_INT, (void *) 0);
+    CHECKED_GL_CALL(glDrawElementsInstanced, GL_TRIANGLES, static_cast<unsigned int>(m_num_indices), GL_UNSIGNED_INT, (void *) 0, amount);
     CHECKED_GL_CALL(glBindVertexArray, 0);
 }
 
