@@ -80,6 +80,7 @@ private:
     bool m_bridge_opened{false};
     glm::vec3 m_bridge_vec{0.0f, 0.0f, 1.0f};
     float m_bridge_radius{0.0f};
+    bool m_spotlight_enabled{false};
 };
 }// namespace engine::main::app
 #endif//MAINCONTROLLER_HPP

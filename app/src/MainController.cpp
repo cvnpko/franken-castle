@@ -96,6 +96,10 @@ void MainController::poll_events() {
                 .state() == engine::platform::Key::State::JustPressed) {
         m_bridge_opening++;
     }
+    if (platform->key(engine::platform::KEY_F)
+                .state() == engine::platform::Key::State::JustPressed) {
+        m_spotlight_enabled = !m_spotlight_enabled;
+    }
 }
 
 void MainController::update() {
@@ -154,6 +158,16 @@ void MainController::draw_grass() {
     shader->set_vec3("dirLight.ambient", glm::vec3(0.05f, 0.05f, 0.05f));
     shader->set_vec3("dirLight.diffuse", glm::vec3(0.4f, 0.4f, 0.4f));
     shader->set_vec3("dirLight.specular", glm::vec3(0.5f, 0.5f, 0.5f));
+    shader->set_vec3("spotLight.position", graphics->camera()->Position);
+    shader->set_vec3("spotLight.direction", graphics->camera()->Front);
+    shader->set_vec3("spotLight.ambient", glm::vec3(0.0f, 0.0f, 0.0f));
+    shader->set_vec3("spotLight.diffuse", m_spotlight_enabled ? glm::vec3(1.0f, 1.0f, 1.0f) : glm::vec3(0.0f, 0.0f, 0.0f));
+    shader->set_vec3("spotLight.specular", m_spotlight_enabled ? glm::vec3(1.0f, 1.0f, 1.0f) : glm::vec3(0.0f, 0.0f, 0.0f));
+    shader->set_float("spotLight.constant", 1.0f);
+    shader->set_float("spotLight.linear", 0.09f);
+    shader->set_float("spotLight.quadratic", 0.032f);
+    shader->set_float("spotLight.cutOff", glm::cos(glm::radians(12.5f)));
+    shader->set_float("spotLight.outerCutOff", glm::cos(glm::radians(15.0f)));
     grass->draw_instancing(shader, m_grass.size());
 }
 
@@ -170,6 +184,16 @@ void MainController::draw_floor() {
     shader->set_vec3("dirLight.ambient", glm::vec3(0.05f, 0.05f, 0.05f));
     shader->set_vec3("dirLight.diffuse", glm::vec3(0.4f, 0.4f, 0.4f));
     shader->set_vec3("dirLight.specular", glm::vec3(0.5f, 0.5f, 0.5f));
+    shader->set_vec3("spotLight.position", graphics->camera()->Position);
+    shader->set_vec3("spotLight.direction", graphics->camera()->Front);
+    shader->set_vec3("spotLight.ambient", glm::vec3(0.0f, 0.0f, 0.0f));
+    shader->set_vec3("spotLight.diffuse", m_spotlight_enabled ? glm::vec3(1.0f, 1.0f, 1.0f) : glm::vec3(0.0f, 0.0f, 0.0f));
+    shader->set_vec3("spotLight.specular", m_spotlight_enabled ? glm::vec3(1.0f, 1.0f, 1.0f) : glm::vec3(0.0f, 0.0f, 0.0f));
+    shader->set_float("spotLight.constant", 1.0f);
+    shader->set_float("spotLight.linear", 0.09f);
+    shader->set_float("spotLight.quadratic", 0.032f);
+    shader->set_float("spotLight.cutOff", glm::cos(glm::radians(12.5f)));
+    shader->set_float("spotLight.outerCutOff", glm::cos(glm::radians(15.0f)));
     floor->draw(shader);
 }
 
@@ -184,6 +208,16 @@ void MainController::draw_tree() {
     shader->set_vec3("dirLight.ambient", glm::vec3(0.05f, 0.05f, 0.05f));
     shader->set_vec3("dirLight.diffuse", glm::vec3(0.4f, 0.4f, 0.4f));
     shader->set_vec3("dirLight.specular", glm::vec3(0.5f, 0.5f, 0.5f));
+    shader->set_vec3("spotLight.position", graphics->camera()->Position);
+    shader->set_vec3("spotLight.direction", graphics->camera()->Front);
+    shader->set_vec3("spotLight.ambient", glm::vec3(0.0f, 0.0f, 0.0f));
+    shader->set_vec3("spotLight.diffuse", m_spotlight_enabled ? glm::vec3(1.0f, 1.0f, 1.0f) : glm::vec3(0.0f, 0.0f, 0.0f));
+    shader->set_vec3("spotLight.specular", m_spotlight_enabled ? glm::vec3(1.0f, 1.0f, 1.0f) : glm::vec3(0.0f, 0.0f, 0.0f));
+    shader->set_float("spotLight.constant", 1.0f);
+    shader->set_float("spotLight.linear", 0.09f);
+    shader->set_float("spotLight.quadratic", 0.032f);
+    shader->set_float("spotLight.cutOff", glm::cos(glm::radians(12.5f)));
+    shader->set_float("spotLight.outerCutOff", glm::cos(glm::radians(15.0f)));
     pine_tree->draw_instancing(shader, m_trees.size());
 }
 
@@ -199,6 +233,16 @@ void MainController::draw_castle() {
     shader->set_vec3("dirLight.ambient", glm::vec3(0.05f, 0.05f, 0.05f));
     shader->set_vec3("dirLight.diffuse", glm::vec3(0.4f, 0.4f, 0.4f));
     shader->set_vec3("dirLight.specular", glm::vec3(0.5f, 0.5f, 0.5f));
+    shader->set_vec3("spotLight.position", graphics->camera()->Position);
+    shader->set_vec3("spotLight.direction", graphics->camera()->Front);
+    shader->set_vec3("spotLight.ambient", glm::vec3(0.0f, 0.0f, 0.0f));
+    shader->set_vec3("spotLight.diffuse", m_spotlight_enabled ? glm::vec3(1.0f, 1.0f, 1.0f) : glm::vec3(0.0f, 0.0f, 0.0f));
+    shader->set_vec3("spotLight.specular", m_spotlight_enabled ? glm::vec3(1.0f, 1.0f, 1.0f) : glm::vec3(0.0f, 0.0f, 0.0f));
+    shader->set_float("spotLight.constant", 1.0f);
+    shader->set_float("spotLight.linear", 0.09f);
+    shader->set_float("spotLight.quadratic", 0.032f);
+    shader->set_float("spotLight.cutOff", glm::cos(glm::radians(12.5f)));
+    shader->set_float("spotLight.outerCutOff", glm::cos(glm::radians(15.0f)));
     castle->draw(shader);
 }
 
@@ -214,6 +258,16 @@ void MainController::draw_bridge() {
     shader->set_vec3("dirLight.ambient", glm::vec3(0.05f, 0.05f, 0.05f));
     shader->set_vec3("dirLight.diffuse", glm::vec3(0.4f, 0.4f, 0.4f));
     shader->set_vec3("dirLight.specular", glm::vec3(0.5f, 0.5f, 0.5f));
+    shader->set_vec3("spotLight.position", graphics->camera()->Position);
+    shader->set_vec3("spotLight.direction", graphics->camera()->Front);
+    shader->set_vec3("spotLight.ambient", glm::vec3(0.0f, 0.0f, 0.0f));
+    shader->set_vec3("spotLight.diffuse", m_spotlight_enabled ? glm::vec3(1.0f, 1.0f, 1.0f) : glm::vec3(0.0f, 0.0f, 0.0f));
+    shader->set_vec3("spotLight.specular", m_spotlight_enabled ? glm::vec3(1.0f, 1.0f, 1.0f) : glm::vec3(0.0f, 0.0f, 0.0f));
+    shader->set_float("spotLight.constant", 1.0f);
+    shader->set_float("spotLight.linear", 0.09f);
+    shader->set_float("spotLight.quadratic", 0.032f);
+    shader->set_float("spotLight.cutOff", glm::cos(glm::radians(12.5f)));
+    shader->set_float("spotLight.outerCutOff", glm::cos(glm::radians(15.0f)));
     bridge->draw(shader);
 }
 
@@ -229,6 +283,16 @@ void MainController::draw_plank() {
     shader->set_vec3("dirLight.ambient", glm::vec3(0.05f, 0.05f, 0.05f));
     shader->set_vec3("dirLight.diffuse", glm::vec3(0.4f, 0.4f, 0.4f));
     shader->set_vec3("dirLight.specular", glm::vec3(0.5f, 0.5f, 0.5f));
+    shader->set_vec3("spotLight.position", graphics->camera()->Position);
+    shader->set_vec3("spotLight.direction", graphics->camera()->Front);
+    shader->set_vec3("spotLight.ambient", glm::vec3(0.0f, 0.0f, 0.0f));
+    shader->set_vec3("spotLight.diffuse", m_spotlight_enabled ? glm::vec3(1.0f, 1.0f, 1.0f) : glm::vec3(0.0f, 0.0f, 0.0f));
+    shader->set_vec3("spotLight.specular", m_spotlight_enabled ? glm::vec3(1.0f, 1.0f, 1.0f) : glm::vec3(0.0f, 0.0f, 0.0f));
+    shader->set_float("spotLight.constant", 1.0f);
+    shader->set_float("spotLight.linear", 0.09f);
+    shader->set_float("spotLight.quadratic", 0.032f);
+    shader->set_float("spotLight.cutOff", glm::cos(glm::radians(12.5f)));
+    shader->set_float("spotLight.outerCutOff", glm::cos(glm::radians(15.0f)));
     plank->draw(shader);
 }
 
@@ -260,6 +324,16 @@ void MainController::draw_water() {
     shader->set_vec3("dirLight.ambient", glm::vec3(0.05f, 0.05f, 0.05f));
     shader->set_vec3("dirLight.diffuse", glm::vec3(0.4f, 0.4f, 0.4f));
     shader->set_vec3("dirLight.specular", glm::vec3(0.5f, 0.5f, 0.5f));
+    shader->set_vec3("spotLight.position", graphics->camera()->Position);
+    shader->set_vec3("spotLight.direction", graphics->camera()->Front);
+    shader->set_vec3("spotLight.ambient", glm::vec3(0.0f, 0.0f, 0.0f));
+    shader->set_vec3("spotLight.diffuse", m_spotlight_enabled ? glm::vec3(1.0f, 1.0f, 1.0f) : glm::vec3(0.0f, 0.0f, 0.0f));
+    shader->set_vec3("spotLight.specular", m_spotlight_enabled ? glm::vec3(1.0f, 1.0f, 1.0f) : glm::vec3(0.0f, 0.0f, 0.0f));
+    shader->set_float("spotLight.constant", 1.0f);
+    shader->set_float("spotLight.linear", 0.09f);
+    shader->set_float("spotLight.quadratic", 0.032f);
+    shader->set_float("spotLight.cutOff", glm::cos(glm::radians(12.5f)));
+    shader->set_float("spotLight.outerCutOff", glm::cos(glm::radians(15.0f)));
 
     water->draw(shader);
 }
@@ -277,6 +351,16 @@ void MainController::draw_alligator() {
     shader->set_vec3("dirLight.ambient", glm::vec3(0.05f, 0.05f, 0.1f));
     shader->set_vec3("dirLight.diffuse", glm::vec3(0.2f, 0.2f, 0.35f));
     shader->set_vec3("dirLight.specular", glm::vec3(0.5f, 0.5f, 0.7f));
+    shader->set_vec3("spotLight.position", graphics->camera()->Position);
+    shader->set_vec3("spotLight.direction", graphics->camera()->Front);
+    shader->set_vec3("spotLight.ambient", glm::vec3(0.0f, 0.0f, 0.0f));
+    shader->set_vec3("spotLight.diffuse", m_spotlight_enabled ? glm::vec3(1.0f, 1.0f, 1.0f) : glm::vec3(0.0f, 0.0f, 0.0f));
+    shader->set_vec3("spotLight.specular", m_spotlight_enabled ? glm::vec3(1.0f, 1.0f, 1.0f) : glm::vec3(0.0f, 0.0f, 0.0f));
+    shader->set_float("spotLight.constant", 1.0f);
+    shader->set_float("spotLight.linear", 0.09f);
+    shader->set_float("spotLight.quadratic", 0.032f);
+    shader->set_float("spotLight.cutOff", glm::cos(glm::radians(12.5f)));
+    shader->set_float("spotLight.outerCutOff", glm::cos(glm::radians(15.0f)));
 
     alligator->draw(shader);
 }
