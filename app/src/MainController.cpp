@@ -150,6 +150,10 @@ void MainController::draw_grass() {
     shader->use();
     shader->set_mat4("projection", graphics->projection_matrix());
     shader->set_mat4("view", graphics->camera()->view_matrix());
+    shader->set_vec3("dirLight.direction", glm::vec3(-0.2f, -1.0f, -0.3f));
+    shader->set_vec3("dirLight.ambient", glm::vec3(0.05f, 0.05f, 0.05f));
+    shader->set_vec3("dirLight.diffuse", glm::vec3(0.4f, 0.4f, 0.4f));
+    shader->set_vec3("dirLight.specular", glm::vec3(0.5f, 0.5f, 0.5f));
     grass->draw_instancing(shader, m_grass.size());
 }
 
@@ -162,6 +166,10 @@ void MainController::draw_floor() {
     shader->set_mat4("projection", graphics->projection_matrix());
     shader->set_mat4("view", graphics->camera()->view_matrix());
     shader->set_mat4("model", get_model_matrix(m_floor));
+    shader->set_vec3("dirLight.direction", glm::vec3(-0.2f, -1.0f, -0.3f));
+    shader->set_vec3("dirLight.ambient", glm::vec3(0.05f, 0.05f, 0.05f));
+    shader->set_vec3("dirLight.diffuse", glm::vec3(0.4f, 0.4f, 0.4f));
+    shader->set_vec3("dirLight.specular", glm::vec3(0.5f, 0.5f, 0.5f));
     floor->draw(shader);
 }
 
@@ -172,6 +180,10 @@ void MainController::draw_tree() {
     shader->use();
     shader->set_mat4("projection", graphics->projection_matrix());
     shader->set_mat4("view", graphics->camera()->view_matrix());
+    shader->set_vec3("dirLight.direction", glm::vec3(-0.2f, -1.0f, -0.3f));
+    shader->set_vec3("dirLight.ambient", glm::vec3(0.05f, 0.05f, 0.05f));
+    shader->set_vec3("dirLight.diffuse", glm::vec3(0.4f, 0.4f, 0.4f));
+    shader->set_vec3("dirLight.specular", glm::vec3(0.5f, 0.5f, 0.5f));
     pine_tree->draw_instancing(shader, m_trees.size());
 }
 
@@ -183,6 +195,10 @@ void MainController::draw_castle() {
     shader->set_mat4("projection", graphics->projection_matrix());
     shader->set_mat4("view", graphics->camera()->view_matrix());
     shader->set_mat4("model", get_model_matrix(m_castle));
+    shader->set_vec3("dirLight.direction", glm::vec3(-0.2f, -1.0f, -0.3f));
+    shader->set_vec3("dirLight.ambient", glm::vec3(0.05f, 0.05f, 0.05f));
+    shader->set_vec3("dirLight.diffuse", glm::vec3(0.4f, 0.4f, 0.4f));
+    shader->set_vec3("dirLight.specular", glm::vec3(0.5f, 0.5f, 0.5f));
     castle->draw(shader);
 }
 
@@ -194,6 +210,10 @@ void MainController::draw_bridge() {
     shader->set_mat4("projection", graphics->projection_matrix());
     shader->set_mat4("view", graphics->camera()->view_matrix());
     shader->set_mat4("model", rotate(get_model_matrix(m_bridge), glm::radians(m_bridge_radius), m_bridge_vec));
+    shader->set_vec3("dirLight.direction", glm::vec3(-0.2f, -1.0f, -0.3f));
+    shader->set_vec3("dirLight.ambient", glm::vec3(0.05f, 0.05f, 0.05f));
+    shader->set_vec3("dirLight.diffuse", glm::vec3(0.4f, 0.4f, 0.4f));
+    shader->set_vec3("dirLight.specular", glm::vec3(0.5f, 0.5f, 0.5f));
     bridge->draw(shader);
 }
 
@@ -205,6 +225,10 @@ void MainController::draw_plank() {
     shader->set_mat4("projection", graphics->projection_matrix());
     shader->set_mat4("view", graphics->camera()->view_matrix());
     shader->set_mat4("model", get_model_matrix(m_plank));
+    shader->set_vec3("dirLight.direction", glm::vec3(-0.2f, -1.0f, -0.3f));
+    shader->set_vec3("dirLight.ambient", glm::vec3(0.05f, 0.05f, 0.05f));
+    shader->set_vec3("dirLight.diffuse", glm::vec3(0.4f, 0.4f, 0.4f));
+    shader->set_vec3("dirLight.specular", glm::vec3(0.5f, 0.5f, 0.5f));
     plank->draw(shader);
 }
 
@@ -232,6 +256,10 @@ void MainController::draw_water() {
     shader->set_mat4("projection", graphics->projection_matrix());
     shader->set_mat4("view", graphics->camera()->view_matrix());
     shader->set_mat4("model", get_model_matrix(m_water));
+    shader->set_vec3("dirLight.direction", glm::vec3(-0.2f, -1.0f, -0.3f));
+    shader->set_vec3("dirLight.ambient", glm::vec3(0.05f, 0.05f, 0.05f));
+    shader->set_vec3("dirLight.diffuse", glm::vec3(0.4f, 0.4f, 0.4f));
+    shader->set_vec3("dirLight.specular", glm::vec3(0.5f, 0.5f, 0.5f));
 
     water->draw(shader);
 }
@@ -245,6 +273,10 @@ void MainController::draw_alligator() {
     shader->set_mat4("projection", graphics->projection_matrix());
     shader->set_mat4("view", graphics->camera()->view_matrix());
     shader->set_mat4("model", get_model_matrix(m_alligator));
+    shader->set_vec3("dirLight.direction", glm::vec3(0.0f, -1.0f, 0.0f));
+    shader->set_vec3("dirLight.ambient", glm::vec3(0.05f, 0.05f, 0.1f));
+    shader->set_vec3("dirLight.diffuse", glm::vec3(0.2f, 0.2f, 0.35f));
+    shader->set_vec3("dirLight.specular", glm::vec3(0.5f, 0.5f, 0.7f));
 
     alligator->draw(shader);
 }
