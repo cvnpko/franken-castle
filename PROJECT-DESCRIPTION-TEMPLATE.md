@@ -29,6 +29,7 @@ ESC -> CLOSE
 [ ] Bloom with the use of HDR
 
 ### Group B:
+
 [ ] Deferred Shading  
 [ ] Point Shadows  
 [ ] SSAO
@@ -44,6 +45,7 @@ https://free3d.com/3d-model/low-poly-flowers-grass-386651.html
 https://sketchfab.com/3d-models/plank-bridge-ea79a4fe83fb4b5181bd68614c73e84a
 https://sketchfab.com/3d-models/dirty-plank-504babddf86c4c2c85bc2ee3c7f53002
 https://sketchfab.com/3d-models/low-poly-animated-cartoon-alligator-8d067b5049c349c5af727b00e8f9dda6
+https://sketchfab.com/3d-models/the-mystery-machine-9f6fd2e34eb1461a9f4e8925182ffc0e
 
 ## Textures
 

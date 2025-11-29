@@ -32,6 +32,10 @@
       "alligator": {
         "path": "alligator/alligator.obj",
         "flip_uvs": true
+      },
+      "mystery_machine": {
+        "path": "mystery_machine/mystery_machine.obj",
+        "flip_uvs": true
       }
     }
   },
